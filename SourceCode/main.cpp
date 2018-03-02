@@ -2,8 +2,8 @@
 /*!
 @file   main.cpp
 @author Chen Shu
-@par    email: shuchen96@163.com
-@date   2/25/2016
+@par    email: shuchenjp@gmail.com
+@date   3/3/2017
 @brief  main file.
 */
 /******************************************************************************/
