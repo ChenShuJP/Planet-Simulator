@@ -16,6 +16,9 @@
 #include <GL/glut.h>
 #include "Object.h"
 
+
+bool obj_initialized = false;
+
 void AddObject(Object* object)
 {
   ObjectList.push_back(object);
@@ -28,11 +31,11 @@ void KeyPressed(unsigned char c, int x, int y)
     exit(0);
   if (c == 'w')
   {
-    cams[0].ChangeEye(0, 1, 0);
+    cams[0].ChangeEye(0, 0, -1);
   }
   if (c == 's')
   {
-    cams[0].ChangeEye(0, -1, 0);
+    cams[0].ChangeEye(0, 0, 1);
   }
   if (c == 'a')
   {
@@ -44,7 +47,11 @@ void KeyPressed(unsigned char c, int x, int y)
   }
   if (c == 'q')
   {
-    cams[0].ChangeEye(1, 0, 0);
+    cams[0].ChangeEye(0, 1, 0);
+  }
+	if (c == 'e')
+  {
+    cams[0].ChangeEye(0, -1, 0);
   }
 }
 
@@ -76,15 +83,17 @@ void Init()
   SystemTime.Writelast_time(glutGet(GLUT_ELAPSED_TIME));
   SystemTime.Writeframe_count(0);
   SystemTime.Writeframe_time(0);
-  cams[0] = Camera(Point(0.0f, 0.0f, 0.0f), Vector(0.0f, 0.0, 1.0f), RelativeUp
-                , 0.5f*PI, 1, 0.01f, 10.0f);
-                
+  cams[0] = Camera(Point(0.0f, 0.0f, 0.0f), Vector(0.0f, 0.0, -1.0f), RelativeUp
+                , 0.5f*PI, 1, 0.01f, 1.0f);          
   SSStexture = &SSS_Texture();
   Object* tmp = new Object(Index, SSStexture->GetTexture(0));//TMP
-  tmp->WriteScale(30, 30, 30);
-  tmp->WriteTranslation(0, 0, -5);
+  tmp->WriteScale(1, 1, 1);
+	tmp->DefaultScale = Vector(1, 1, 1);
+	tmp->DefaultRotation = Point(0, 0, 0);
+  tmp->WriteTranslation(0, 0, 0);
+	tmp->WritePosition(0, 0, -5);
+	tmp->WriteRotation(0, 0.002, 0);
   AddObject(tmp);
-  
 }
 
 void Draw()
@@ -100,7 +109,6 @@ void Draw()
                                + (SystemTime.Getdt()));
   if (SystemTime.Getframe_time() >= 0.5) {
     double fps = SystemTime.Getframe_count()/SystemTime.Getframe_time();
-    //std::cout << SystemTime.Getframe_count() << " ," << SystemTime.Getframe_time() << std::endl;
     SystemTime.Writeframe_count(0);
     SystemTime.Writeframe_time(0);
     std::stringstream ss;
@@ -114,42 +122,30 @@ void Draw()
   // clear the z-buffer
   glClearDepth(1);
   glClear(GL_DEPTH_BUFFER_BIT);
+	
+	//Update
+	//ObjectList[0]->WriteRotation(0, ObjectList[0]->GetRotation().y + 0.005, 0);
   
   //Calculate Camera Matrix
   Affine tmpCameraAffine = cams[0].WorldToCamera(cams[0]);
-  
-  GLfloat CameraMatrix[16];
-  for (int i = 0; i < 4; ++i)
-  {
-    for (int j = 0; i < 4; ++j)
-    {
-      CameraMatrix[i * 4 + j] = (GLfloat)tmpCameraAffine[i][j];
-    }
-  }
-  
-  //Test
-  if (TMP_FLAG == false)
-  {
-    for (int i = 0; i < 4; ++i)
-    {
-      for (int j = 0; i < 4; ++j)
-      {
-        std::cout << CameraMatrix[i * 4 + j] << ' ';
-      }
-      std::cout << std::endl;
-    }
-  }
+	Matrix tmpProjecMatrix = CameraToNDC(cams[0]);
+ 
   
   //Drawing
   for (std::vector<Object*>::size_type i = 0; i < Index; i++)
   {
-    ObjectList[i]->ObjectDraw(CameraMatrix);
+    ObjectList[i]->ObjectDraw(tmpCameraAffine, tmpProjecMatrix, obj_initialized);
     ObjectList[i]->WriteAngle(ObjectList[i]->GetAngle() + 1);
   }
   // swap in the back buffer
   glutSwapBuffers();
   SystemTime.Writecurrent_time(SystemTime.Getcurrent_time() +
                                 SystemTime.Getdt());
+																
+	if(obj_initialized == false)
+	{
+		obj_initialized = true;
+	}
 }
 
 

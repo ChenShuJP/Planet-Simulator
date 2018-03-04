@@ -10,6 +10,8 @@
 
 #include "Object.h"
 #include "GlobalDeclaration.h"
+#include <iostream>
+#include "Projection.h"
   
 void Object::WriteAngle(float i)
 {
@@ -20,37 +22,39 @@ float Object::GetAngle(void)
   return angle;
 }
 
-void Object::ObjectDraw(GLfloat* CMatrix)
+void Object::ObjectDraw(Affine& CMatrix, Matrix& PMatrix, bool obj_initialized)
 {
-  glLoadIdentity();
-    
-  glRotatef(angle,0,1,0);
-
-  glRotatef (90, 1, 0, 0);
-  
-  glTranslatef(0,0,-10);
-  
-  glMultMatrixf(CMatrix);
-  
-  
-  
-  //Camera
-  
-  glRotatef(3,cams[0].Up().x,cams[0].Up().y,cams[0].Up().z);
-  
-  glTranslatef(cams[0].Eye().x,cams[0].Eye().y,cams[0].Eye().z);
 
   glBindTexture (GL_TEXTURE_2D, TextureID);
 
   glBegin (GL_TRIANGLE_STRIP);
-    
+	
+	Hcoords Point1tmp;
+	
+	if (obj_initialized == false)
+	{
+		ModelMatrix = Trans(Vector(Position.x, Position.y, Position.z)) * Rot(DefaultRotation.y, Vector(0,1,0))
+								* Scale(this->DefaultScale.x,this->DefaultScale.y,this->DefaultScale.z);
+	}
+	
+	ModelMatrix = Trans(Vector(Translation.x, Translation.y, Translation.z)) * Rot(Rotation.y, Vector(0,1,0))
+								* Scale(this->scale.x,this->scale.y,this->scale.z) * ModelMatrix;
+								
+	Matrix tmpM0 = CMatrix * ModelMatrix;
+	Matrix tmpM = PMatrix * CMatrix * ModelMatrix;
+	
+	
   for (int b = 0; b < 2592; b++)
   {
-    glTexCoord2f (sphere.GetU(b), sphere.GetV(b));
-    //std::cout << VERTEX[b].U <<std::endl;     
-    glVertex3f (sphere.GetVertex(b).x, sphere.GetVertex(b).y, -sphere.GetVertex(b).z);
-    //std::cout << VERTEX[b].X <<std::endl;
+		if ((tmpM0 * sphere.GetVertex(b)).z < 0)
+		{
+			Point1tmp = tmpM * sphere.GetVertex(b);
+			Point1tmp = Scale(1.0 / Point1tmp.w) * Point1tmp;
+			glTexCoord2f (sphere.GetU(b), sphere.GetV(b));
+			glVertex3f (Point1tmp.x, Point1tmp.y, -Point1tmp.z);
+		}
   }
+
   
   glEnd();
 }
@@ -62,9 +66,13 @@ Object::Object(int& index, GLuint& TID)
   Rotation = Point(0, 0, 0);
   TextureID = TID;
   scale = Vector(1, 1, 1);
+	DefaultScale = Vector(1, 1, 1);
+	DefaultRotation = Point(0, 0, 0);
   angle = 0;
   
   ObjectID = index;
+	
+	ModelMatrix = Matrix();
 }
 
 int Object::GetObjectID(void)
@@ -116,4 +124,16 @@ void Object::WriteScale(float x, float y, float z)
 Vector Object::GetScale(void)
 {
   return scale;
+}
+
+Point& Object::GetPosition(void)
+{
+  return Position;
+}
+
+void Object::WritePosition(float x, float y, float z)
+{
+  Position.x = x;
+  Position.y = y;
+  Position.z = z;
 }

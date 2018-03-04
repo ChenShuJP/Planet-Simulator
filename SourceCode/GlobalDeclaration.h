@@ -18,7 +18,6 @@
 #include "Camera.h"
 #include "Time.h"
 #include "WindowsSys.h"
-/*#include <Windows.h>*/
 
 extern GlobalTime SystemTime;
 extern WindowsSys glWindows;
@@ -41,5 +40,7 @@ extern int Index;
 //Texture
 extern SSS_Texture* SSStexture;
 
-extern bool TMP_FLAG;
+//Object Initialization
+extern bool obj_initialized;
+
 #endif

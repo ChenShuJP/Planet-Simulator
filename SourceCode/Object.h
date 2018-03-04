@@ -29,8 +29,14 @@ class Object
   int GetObjectID(void);
   void WriteAngle(float i);
   float GetAngle(void);
+	void WritePosition(float x, float y, float z);
+  Point& GetPosition(void);
+	
+	Matrix ModelMatrix;
+	Point DefaultRotation;
+	Vector DefaultScale;
   
-  void ObjectDraw(GLfloat* CMatrix);
+  void ObjectDraw(Affine& CMatrix, Matrix& PMatrix, bool obj_initialized);
   private:
   Vector axis;
   float angle;
@@ -39,6 +45,7 @@ class Object
   Point Rotation;
   GLuint TextureID;
   int ObjectID;
+	Point Position;
 };
 
 #endif

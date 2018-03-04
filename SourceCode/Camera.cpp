@@ -57,7 +57,7 @@ Camera::Camera(const Point& E, const Vector& look, const Vector& vp,
   this->near = near;
   this->far = far;
   
-  distance = 1;
+  distance = 1.0f;
   width = tan(fov / 2) * 2 * distance;
   height = width / aspect;
 }
@@ -176,14 +176,5 @@ Affine Camera::WorldToCamera(const Camera& cam)
   Affine tmp = CameraToWorld(cam);
   tmp = Inverse(tmp);
   return tmp;
-}
-
-Camera& Camera2Dmove(const float X, const float Y);// 9/9 Added
-{
-  float localX = X;
-  float localY = Y;
-  
-  ChangeEye(localX, localY, this.Eye.z);
-  return *this;
 }
 

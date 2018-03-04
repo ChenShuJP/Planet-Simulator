@@ -1,0 +1,84 @@
+#========================================
+#
+#author Chen Shu
+#email: shuchenjp@gmail.com
+#
+#========================================
+
+# Introduction ==========================
+#
+# Open command line and make sure in the directory
+# whichis the location of this file.
+# Type the following command to bulid:
+# make -f MAKEFILE-MS
+#
+# Type the following command to clean:
+# make -f MAKEFILE-MS clean
+#
+# Type the following command to rebuild:
+# make -f MAKEFILE-MS rebuild
+#
+#========================================
+
+
+
+
+# Macros ========================================
+
+CC=cl
+CFLAGS=/c /EHsc
+DIR= ms/
+OBJECTS=$(DIR)main.obj $(DIR)Time.obj $(DIR)Affine.obj $(DIR)OpenGLDraw.obj $(DIR)WindowsSys.obj $(DIR)Camera.obj $(DIR)Object.obj $(DIR)Texture.obj $(DIR)SphereMesh.obj $(DIR)Projection.obj
+EXE=PlanetSimulator.exe
+
+# Targets ========================================
+
+$(DIR)$(EXE) : $(OBJECTS)
+	$(CC) $(OBJECTS) /Fe$(DIR)$(EXE)
+
+$(DIR)main.obj : main.cpp glDraw.h Time.h WindowsSys.h
+	test -d $(DIR) || mkdir $(DIR)
+	$(CC) $(CFLAGS) main.cpp /Fo$(DIR)main.obj
+
+$(DIR)Projection.obj : Projection.cpp Projection.h Affine.h
+	test -d $(DIR) || mkdir $(DIR)
+	$(CC) $(CFLAGS) Projection.cpp /Fo$(DIR)Projection.obj
+  
+$(DIR)SphereMesh.obj : SphereMesh.cpp SphereMesh.h Affine.h
+	test -d $(DIR) || mkdir $(DIR)
+	$(CC) $(CFLAGS) SphereMesh.cpp /Fo$(DIR)SphereMesh.obj
+  
+$(DIR)Texture.obj : Texture.cpp Texture.h
+	test -d $(DIR) || mkdir $(DIR)
+	$(CC) $(CFLAGS) Texture.cpp /Fo$(DIR)Texture.obj
+  
+$(DIR)Object.obj : Object.cpp Object.h Affine.h
+	test -d $(DIR) || mkdir $(DIR)
+	$(CC) $(CFLAGS) Object.cpp /Fo$(DIR)Object.obj
+  
+$(DIR)Affine.obj : Affine.cpp Affine.h
+	test -d $(DIR) || mkdir $(DIR)
+	$(CC) $(CFLAGS) Affine.cpp /Fo$(DIR)Affine.obj
+
+$(DIR)Time.obj : Time.cpp Time.h
+	test -d $(DIR) || mkdir $(DIR)
+	$(CC) $(CFLAGS) Time.cpp /Fo$(DIR)Time.obj
+  
+$(DIR)Camera.obj : Camera.cpp Camera.h
+	test -d $(DIR) || mkdir $(DIR)
+	$(CC) $(CFLAGS) Camera.cpp /Fo$(DIR)Camera.obj
+
+$(DIR)OpenGLDraw.obj : OpenGLDraw.cpp glDraw.h Time.h WindowsSys.h Camera.h Projection.h
+	test -d $(DIR) || mkdir $(DIR)
+	$(CC) $(CFLAGS) OpenGLDraw.cpp /Fo$(DIR)OpenGLDraw.obj
+  
+$(DIR)WindowsSys.obj : WindowsSys.cpp WindowsSys.h
+	test -d $(DIR) || mkdir $(DIR)
+	$(CC) $(CFLAGS) WindowsSys.cpp /Fo$(DIR)WindowsSys.obj
+clean :
+	rm $(DIR)$(EXE) $(OBJECTS)
+  
+rebuild : 
+	rm $(DIR)$(EXE) $(OBJECTS)
+	$(MAKE) -f makefile-ms
+

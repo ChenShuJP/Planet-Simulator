@@ -23,7 +23,6 @@ Camera cams[1];
 Vector RelativeUp(0, 1, 0);
 std::vector<Object*> ObjectList;
 SSS_Texture* SSStexture;
-bool TMP_FLAG = false;
 
 int main(int argc, char* argv[])
 {

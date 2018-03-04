@@ -1,4 +1,4 @@
-/********************************************/**********************************/
+/******************************************************************************/
 /*!
 @file   Camera.h
 @author Chen Shu
@@ -31,8 +31,6 @@ class Camera {
     Camera& Yaw(float angle);
     Camera& Pitch(float angle);
     Camera& Roll(float angle);
-	
-	Camera& Camera2Dmove(const float X, const float Y);// 9/9 Added
     
     Affine CameraToWorld(const Camera& cam);
     Affine WorldToCamera(const Camera& cam);
