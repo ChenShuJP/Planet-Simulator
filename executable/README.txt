@@ -1,4 +1,6 @@
-Run PlanetSimulator.exe.
+Download PlanetSimulator.exe, glut32.dll and texture.raw into the same directory.
+
+Run PlanetSimulator.exe in the directory.
 
 W: Camera forward;
 S: Camera backward;
