@@ -6,6 +6,8 @@ A: Camera left;
 D: Camera right;
 Q: Camera Up;
 S: Camera Down;
+Esc: Exit.(If you close the program by clicking the red cross, process will not be ended
+ properly.[Even though it happens, nothing harmful will be done to your computer.])
 
 If you have any questions, feel free to contact me at shuchenjp@gmail.com.
 
