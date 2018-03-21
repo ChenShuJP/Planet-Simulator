@@ -29,10 +29,13 @@ class Object
   int GetObjectID(void);
   void WriteAngle(float i);
   float GetAngle(void);
-	void WritePosition(float x, float y, float z);
-  Point& GetPosition(void);
+	void WriteDefaultPosition(float x, float y, float z);
+  Point& GetDefaultPosition(void);
+	void WriteSelfRotation(float x, float y, float z);
+	Point& GetSelfRotation(void);
 	
 	Matrix ModelMatrix;
+	Matrix BasicModelMatrix;
 	Point DefaultRotation;
 	Vector DefaultScale;
   
@@ -45,6 +48,8 @@ class Object
   Point Rotation;
   GLuint TextureID;
   int ObjectID;
+	Point DefaultPosition;
+	Point SelfRotation;
 	Point Position;
 };
 

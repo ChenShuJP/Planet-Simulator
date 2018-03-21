@@ -89,10 +89,11 @@ void Init()
   Object* tmp = new Object(Index, SSStexture->GetTexture(0));//TMP
   tmp->WriteScale(1, 1, 1);
 	tmp->DefaultScale = Vector(1, 1, 1);
-	tmp->DefaultRotation = Point(0, 0, 0);
+	tmp->DefaultRotation = Point(-1 * 3.1415926/2, 0, 0);
   tmp->WriteTranslation(0, 0, 0);
-	tmp->WritePosition(0, 0, -5);
-	tmp->WriteRotation(0, 0.002, 0);
+	tmp->WriteDefaultPosition(0, 0, -5);
+	tmp->WriteRotation(0, 0.01, 0);
+	tmp->WriteSelfRotation(0.00, 0.03, 0.0);
   AddObject(tmp);
 }
 

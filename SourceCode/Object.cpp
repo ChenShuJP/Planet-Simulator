@@ -33,15 +33,45 @@ void Object::ObjectDraw(Affine& CMatrix, Matrix& PMatrix, bool obj_initialized)
 	
 	if (obj_initialized == false)
 	{
-		ModelMatrix = Trans(Vector(Position.x, Position.y, Position.z)) * Rot(DefaultRotation.y, Vector(0,1,0))
-								* Scale(this->DefaultScale.x,this->DefaultScale.y,this->DefaultScale.z);
+		BasicModelMatrix = Trans(Vector(DefaultPosition.x, DefaultPosition.y, DefaultPosition.z));
+		
+		
+		ModelMatrix = BasicModelMatrix * 
+									Rot(DefaultRotation.x, Vector(1,0,0)) *
+		              Rot(DefaultRotation.y, Vector(0,1,0)) *
+									Rot(DefaultRotation.z, Vector(0,0,1)) *
+									Scale(this->DefaultScale.x,this->DefaultScale.y,this->DefaultScale.z);
+									Position = DefaultPosition;
+									//std::cout << Position.x << " " << Position.y << " " << Position.z << std::endl;
 	}
 	
-	ModelMatrix = Trans(Vector(Translation.x, Translation.y, Translation.z)) * Rot(Rotation.y, Vector(0,1,0))
-								* Scale(this->scale.x,this->scale.y,this->scale.z) * ModelMatrix;
+	
+	Matrix tmpBSMatrix = Trans(Vector(Translation.x, Translation.y, Translation.z)) * 
+								Rot(Rotation.x, Vector(1,0,0)) *
+								Rot(Rotation.y, Vector(0,1,0)) *
+								Rot(Rotation.z, Vector(0,0,1));
+  //Point Position321 = tmpBSMatrix * Position;
+	//std::cout << Position321.x << " " << Position321.y << " " << Position321.z << std::endl;
+	BasicModelMatrix = tmpBSMatrix * BasicModelMatrix;
+	
+								
+	ModelMatrix = tmpBSMatrix * 
+								//self rotation matrix here
+								Trans(Position - Point(0, 0, 0)) *
+								Rot(SelfRotation.x, Vector(1,0,0)) *
+								Rot(SelfRotation.y, Vector(0,1,0)) *
+								Rot(SelfRotation.z, Vector(0,0,1)) *
+								//self rotation matrix calculation end here.
+								Scale(this->scale.x,this->scale.y,this->scale.z) * 
+								Trans(Point(0, 0, 0) - Position) *
+								ModelMatrix;
 								
 	Matrix tmpM0 = CMatrix * ModelMatrix;
 	Matrix tmpM = PMatrix * CMatrix * ModelMatrix;
+	//Point Position321 = Trans(Vector(-1 * Position.x, -1 * Position.y, -1 * Position.z)) * Position;
+	//std::cout << Position321.x << " " << Position321.y << " " << Position321.z << std::endl;
+	//std::cout << Position.x << " " << Position.y << " " << Position.z << std::endl;
+	Position = BasicModelMatrix * Point(0, 0, 0);
 	
 	
   for (int b = 0; b < 2592; b++)
@@ -126,14 +156,25 @@ Vector Object::GetScale(void)
   return scale;
 }
 
-Point& Object::GetPosition(void)
+Point& Object::GetDefaultPosition(void)
 {
-  return Position;
+  return DefaultPosition;
 }
 
-void Object::WritePosition(float x, float y, float z)
+void Object::WriteDefaultPosition(float x, float y, float z)
 {
-  Position.x = x;
-  Position.y = y;
-  Position.z = z;
+  DefaultPosition.x = x;
+  DefaultPosition.y = y;
+  DefaultPosition.z = z;
+}
+
+void Object::WriteSelfRotation(float x, float y, float z)
+{
+	SelfRotation.x = x;
+	SelfRotation.y = y;
+	SelfRotation.z = z;
+}
+Point& Object::GetSelfRotation(void)
+{
+	return SelfRotation;
 }
