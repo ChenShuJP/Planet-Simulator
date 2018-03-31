@@ -39,6 +39,7 @@ class Camera {
     void MultiplyMatrix(Affine& input);
     
     void ChangeEye(float x, float y, float z);
+		void RotateCamera(float x, float y, float z);
   private:
     Point eye;
     Vector right, up, back;

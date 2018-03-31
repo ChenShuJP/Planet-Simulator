@@ -178,3 +178,17 @@ Affine Camera::WorldToCamera(const Camera& cam)
   return tmp;
 }
 
+void Camera::RotateCamera(float x, float y, float z)
+{
+	//around local right axis
+	up = Rot(x, right) * up;
+	back = Rot(x, right) * back;
+	//around local up axis
+	right = Rot(y, up) * right;
+	back = Rot(y, up) * back;
+	//around local back axis
+	up = Rot(z, back) * up;
+	right = Rot(z, back) * right;
+	return;
+}
+

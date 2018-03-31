@@ -53,6 +53,15 @@ void KeyPressed(unsigned char c, int x, int y)
   {
     cams[0].ChangeEye(0, -1, 0);
   }
+	if (c == 'e')
+  {
+    cams[0].ChangeEye(0, -1, 0);
+  }
+	
+	if (c == 'z')
+  {
+    cams[0].RotateCamera(0.01, 0, 0);
+  }
 }
 
 void Loop(void)
