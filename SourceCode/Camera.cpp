@@ -30,9 +30,9 @@ Camera::Camera()
 
 void Camera::ChangeEye(float x, float y, float z)
 {
-  eye.x += x;
-  eye.y += y;
-  eye.z += z;
+  eye.x += right.x * x + up.x * y + back.x * z;
+  eye.y += right.y * x + up.y * y + back.y * z;
+  eye.z += right.z * x + up.z * y + back.z * z;
 }
 
 Affine& Camera::GetMatrix(void)
