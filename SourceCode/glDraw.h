@@ -16,6 +16,10 @@ void Init(void);
 void Draw(void);
 void Destroy(void);
 void KeyPressed(unsigned char c, int x, int y);
+void MouseFunction(int button, int state,
+                                int x, int y);
+void MouseMotionFunction(int x, int y);
+void MousePassMotionFunction(int x, int y);
 void display (void);
 
 #endif

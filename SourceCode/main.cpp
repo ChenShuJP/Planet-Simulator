@@ -35,6 +35,9 @@ int main(int argc, char* argv[])
   glutCreateWindow(glWindows.Getname());
   glutDisplayFunc(Draw);
   glutKeyboardFunc(KeyPressed);
+  glutMotionFunc(MouseMotionFunction);
+  glutPassiveMotionFunc(MousePassMotionFunction);
+  glutMouseFunc(MouseFunction);
   glutReshapeFunc(Resized);
   glutIdleFunc(Loop);
   Init();

@@ -18,11 +18,63 @@
 
 
 bool obj_initialized = false;
+bool Mouse_pressed_l = false;
+float mouse_x = 0;
+float mouse_y = 0;
+float mouse_x_old = 0;
+float mouse_y_old = 0;
+bool mouse_pos_initialized = false;
+float camera_rot_speed = 0.001;//0~1
 
 void AddObject(Object* object)
 {
   ObjectList.push_back(object);
   Index++;
+}
+
+void MouseMotionFunction(int x, int y)
+{
+  if (Mouse_pressed_l == true)
+  {
+    std::cout << x << " ," << y << std::endl;
+  }
+}
+
+void MousePassMotionFunction(int x, int y)
+{
+  std::cout << x << " ," << y << std::endl;
+  if (mouse_pos_initialized == false)
+  {
+    mouse_x = glWindows.Getwidth()/2;
+    mouse_y = glWindows.Getheight()/2;
+    mouse_x_old = mouse_x;
+    mouse_y_old = mouse_y;
+    mouse_pos_initialized = true;
+    glutWarpPointer(glWindows.Getwidth()/2, glWindows.Getheight()/2);
+  }
+  else
+  {
+    mouse_x = x;
+    mouse_y = y;
+    cams[0].RotateCamera(camera_rot_speed * -1 * (mouse_y - mouse_y_old), 
+                         camera_rot_speed * -1 * (mouse_x - mouse_x_old), 0);
+    mouse_x_old = mouse_x;
+    mouse_y_old = mouse_y;
+    //glutWarpPointer(glWindows.Getwidth()/2, glWindows.Getheight()/2);
+  }
+}
+
+void MouseFunction(int button, int state,
+                                int x, int y)
+{
+  if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
+  {
+    Mouse_pressed_l = true;
+  }
+  if(button == GLUT_LEFT_BUTTON && state == GLUT_UP)
+  {
+    Mouse_pressed_l = false;
+  }
 }
 
 void KeyPressed(unsigned char c, int x, int y) 
@@ -58,6 +110,7 @@ void KeyPressed(unsigned char c, int x, int y)
     cams[0].ChangeEye(0, -1, 0);
   }
 	
+  /*
   if (c == 'z')
   {
     cams[0].RotateCamera(0.01, 0, 0);
@@ -73,7 +126,7 @@ void KeyPressed(unsigned char c, int x, int y)
   if (c == 'v')
   {
     cams[0].RotateCamera(0, -0.01, 0);
-  }
+  }*/
 }
 
 void Loop(void)
