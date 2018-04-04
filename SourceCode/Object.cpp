@@ -76,11 +76,11 @@ void Object::ObjectDraw(Affine& CMatrix, Matrix& PMatrix, bool obj_initialized)
 	
   for (int b = 0; b < 2592; b++)
   {
-		if ((tmpM0 * sphere.GetVertex(b)).z < 0)
+		if ((tmpM0 * GLVar.sphere.GetVertex(b)).z < 0)
 		{
-			Point1tmp = tmpM * sphere.GetVertex(b);
+			Point1tmp = tmpM * GLVar.sphere.GetVertex(b);
 			Point1tmp = Scale(1.0 / Point1tmp.w) * Point1tmp;
-			glTexCoord2f (sphere.GetU(b), sphere.GetV(b));
+			glTexCoord2f (GLVar.sphere.GetU(b), GLVar.sphere.GetV(b));
 			glVertex3f (Point1tmp.x, Point1tmp.y, -Point1tmp.z);
 		}
   }

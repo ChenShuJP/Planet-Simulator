@@ -28,7 +28,7 @@
 CC=cl
 CFLAGS=/c /EHsc
 DIR= ms/
-OBJECTS=$(DIR)main.obj $(DIR)Time.obj $(DIR)Affine.obj $(DIR)OpenGLDraw.obj $(DIR)WindowsSys.obj $(DIR)Camera.obj $(DIR)Object.obj $(DIR)Texture.obj $(DIR)SphereMesh.obj $(DIR)Projection.obj
+OBJECTS=$(DIR)main.obj $(DIR)Time.obj $(DIR)Affine.obj $(DIR)OpenGLDraw.obj $(DIR)WindowsSys.obj $(DIR)Camera.obj $(DIR)Object.obj $(DIR)Texture.obj $(DIR)SphereMesh.obj $(DIR)Projection.obj $(DIR)GlobalVariable.obj
 EXE=PlanetSimulator.exe
 
 # Targets ========================================
@@ -75,6 +75,11 @@ $(DIR)OpenGLDraw.obj : OpenGLDraw.cpp glDraw.h Time.h WindowsSys.h Camera.h Proj
 $(DIR)WindowsSys.obj : WindowsSys.cpp WindowsSys.h
 	test -d $(DIR) || mkdir $(DIR)
 	$(CC) $(CFLAGS) WindowsSys.cpp /Fo$(DIR)WindowsSys.obj
+  
+$(DIR)GlobalVariable.obj : GlobalVariable.cpp GlobalDeclaration.h Object.h Texture.h SphereMesh.h Camera.h Time.h WindowsSys.h 
+	test -d $(DIR) || mkdir $(DIR)
+	$(CC) $(CFLAGS) GlobalVariable.cpp /Fo$(DIR)GlobalVariable.obj
+
 clean :
 	rm $(DIR)$(EXE) $(OBJECTS)
   

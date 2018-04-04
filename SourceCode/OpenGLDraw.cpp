@@ -16,25 +16,15 @@
 #include <GL/glut.h>
 #include "Object.h"
 
-
-bool obj_initialized = false;
-bool Mouse_pressed_l = false;
-float mouse_x = 0;
-float mouse_y = 0;
-float mouse_x_old = 0;
-float mouse_y_old = 0;
-bool mouse_pos_initialized = false;
-float camera_rot_speed = 0.001;//0~1
-
 void AddObject(Object* object)
 {
-  ObjectList.push_back(object);
-  Index++;
+  GLVar.ObjectList.push_back(object);
+  GLVar.Index++;
 }
 
 void MouseMotionFunction(int x, int y)
 {
-  if (Mouse_pressed_l == true)
+  if (GLVar.Mouse_pressed_l == true)
   {
     std::cout << x << " ," << y << std::endl;
   }
@@ -42,25 +32,24 @@ void MouseMotionFunction(int x, int y)
 
 void MousePassMotionFunction(int x, int y)
 {
-  std::cout << x << " ," << y << std::endl;
-  if (mouse_pos_initialized == false)
+  if (GLVar.mouse_pos_initialized == false)
   {
-    mouse_x = glWindows.Getwidth()/2;
-    mouse_y = glWindows.Getheight()/2;
-    mouse_x_old = mouse_x;
-    mouse_y_old = mouse_y;
-    mouse_pos_initialized = true;
-    glutWarpPointer(glWindows.Getwidth()/2, glWindows.Getheight()/2);
+    GLVar.mouse_x = GLVar.glWindows.Getwidth()/2;
+    GLVar.mouse_y = GLVar.glWindows.Getheight()/2;
+    GLVar.mouse_x_old = GLVar.mouse_x;
+    GLVar.mouse_y_old = GLVar.mouse_y;
+    GLVar.mouse_pos_initialized = true;
+    glutWarpPointer(GLVar.glWindows.Getwidth()/2, GLVar.glWindows.Getheight()/2);
   }
   else
   {
-    mouse_x = x;
-    mouse_y = y;
-    cams[0].RotateCamera(camera_rot_speed * -1 * (mouse_y - mouse_y_old), 
-                         camera_rot_speed * -1 * (mouse_x - mouse_x_old), 0);
-    mouse_x_old = mouse_x;
-    mouse_y_old = mouse_y;
-    //glutWarpPointer(glWindows.Getwidth()/2, glWindows.Getheight()/2);
+    GLVar.mouse_x = x;
+    GLVar.mouse_y = y;
+    GLVar.cams[0].RotateCamera(GLVar.camera_rot_speed * -1 * (GLVar.mouse_y - GLVar.mouse_y_old), 
+                         GLVar.camera_rot_speed * -1 * (GLVar.mouse_x - GLVar.mouse_x_old), 0);
+    GLVar.mouse_x_old = GLVar.mouse_x;
+    GLVar.mouse_y_old = GLVar.mouse_y;
+    //glutWarpPointer(GLVar.glWindows.Getwidth()/2, GLVar.glWindows.Getheight()/2);
   }
 }
 
@@ -69,11 +58,11 @@ void MouseFunction(int button, int state,
 {
   if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
   {
-    Mouse_pressed_l = true;
+    GLVar.Mouse_pressed_l = true;
   }
   if(button == GLUT_LEFT_BUTTON && state == GLUT_UP)
   {
-    Mouse_pressed_l = false;
+    GLVar.Mouse_pressed_l = false;
   }
 }
 
@@ -83,49 +72,49 @@ void KeyPressed(unsigned char c, int x, int y)
     exit(0);
   if (c == 'w')
   {
-    cams[0].ChangeEye(0, 0, -1);
+    GLVar.cams[0].ChangeEye(0, 0, -1);
   }
   if (c == 's')
   {
-    cams[0].ChangeEye(0, 0, 1);
+    GLVar.cams[0].ChangeEye(0, 0, 1);
   }
   if (c == 'a')
   {
-    cams[0].ChangeEye(-1, 0, 0);
+    GLVar.cams[0].ChangeEye(-1, 0, 0);
   }
   if (c == 'd')
   {
-    cams[0].ChangeEye(1, 0, 0);
+    GLVar.cams[0].ChangeEye(1, 0, 0);
   }
   if (c == 'q')
   {
-    cams[0].ChangeEye(0, 1, 0);
+    GLVar.cams[0].ChangeEye(0, 1, 0);
   }
 	if (c == 'e')
   {
-    cams[0].ChangeEye(0, -1, 0);
+    GLVar.cams[0].ChangeEye(0, -1, 0);
   }
 	if (c == 'e')
   {
-    cams[0].ChangeEye(0, -1, 0);
+    GLVar.cams[0].ChangeEye(0, -1, 0);
   }
 	
   /*
   if (c == 'z')
   {
-    cams[0].RotateCamera(0.01, 0, 0);
+    GLVar.cams[0].RotateCamera(0.01, 0, 0);
   }
   if (c == 'x')
   {
-    cams[0].RotateCamera(-0.01, 0, 0);
+    GLVar.cams[0].RotateCamera(-0.01, 0, 0);
   }
   if (c == 'c')
   {
-    cams[0].RotateCamera(0, 0.01, 0);
+    GLVar.cams[0].RotateCamera(0, 0.01, 0);
   }
   if (c == 'v')
   {
-    cams[0].RotateCamera(0, -0.01, 0);
+    GLVar.cams[0].RotateCamera(0, -0.01, 0);
   }*/
 }
 
@@ -136,12 +125,12 @@ void Loop(void)
 
 void Resized(int W, int H) 
 {
-  glWindows.Writewidth(W);
-  glWindows.Writeheight(H);
+  GLVar.glWindows.Writewidth(W);
+  GLVar.glWindows.Writeheight(H);
   glViewport(0,0,W,H);
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-  gluPerspective(60, (GLfloat)glWindows.Getwidth() / (GLfloat)glWindows.Getheight(), 0.1, 100.0);
+  gluPerspective(60, (GLfloat)GLVar.glWindows.Getwidth() / (GLfloat)GLVar.glWindows.Getheight(), 0.1, 100.0);
   glMatrixMode(GL_MODELVIEW);
 }
 
@@ -154,13 +143,13 @@ void Init()
   glFrontFace(GL_CCW);
   glEnable(GL_CULL_FACE);
   
-  SystemTime.Writelast_time(glutGet(GLUT_ELAPSED_TIME));
-  SystemTime.Writeframe_count(0);
-  SystemTime.Writeframe_time(0);
-  cams[0] = Camera(Point(0.0f, 0.0f, 50.0f), Vector(0.0f, 0.0, -1.0f), RelativeUp
-                , 0.5f*PI, 1, 0.01f, 1.0f);          
-  SSStexture = &SSS_Texture();
-  Object* tmp = new Object(Index, SSStexture->GetTexture(0));//TMP
+  GLVar.SystemTime.Writelast_time(glutGet(GLUT_ELAPSED_TIME));
+  GLVar.SystemTime.Writeframe_count(0);
+  GLVar.SystemTime.Writeframe_time(0);
+  GLVar.cams[0] = Camera(Point(0.0f, 0.0f, 50.0f), Vector(0.0f, 0.0, -1.0f), GLVar.RelativeUp
+                , 0.5f*GLVar.PI, 1, 0.01f, 1.0f);          
+  GLVar.SSStexture = &SSS_Texture();
+  Object* tmp = new Object(GLVar.Index, GLVar.SSStexture->GetTexture(0));//TMP
   tmp->WriteScale(1, 1, 1);
 	tmp->DefaultScale = Vector(1, 1, 1);
 	tmp->DefaultRotation = Point(-1 * 3.1415926/2, 0, 0);
@@ -170,7 +159,7 @@ void Init()
 	tmp->WriteSelfRotation(0.00, 0.03, 0.0);
   AddObject(tmp);
 	
-	Object* tmp1 = new Object(Index, SSStexture->GetTexture(0));//TMP
+	Object* tmp1 = new Object(GLVar.Index, GLVar.SSStexture->GetTexture(0));//TMP
 	tmp1->WriteScale(1, 1, 1);
 	tmp1->DefaultScale = Vector(7, 7, 7);
 	tmp1->DefaultRotation = Point(-1 * 3.1415926/2, 0, 0);
@@ -180,7 +169,7 @@ void Init()
 	tmp1->WriteSelfRotation(0.00, 0.0, 0.0);
 	AddObject(tmp1);
 	
-	Object* tmp2 = new Object(Index, SSStexture->GetTexture(0));//TMP
+	Object* tmp2 = new Object(GLVar.Index, GLVar.SSStexture->GetTexture(0));//TMP
 	tmp2->WriteScale(1, 1, 1);
 	tmp2->DefaultScale = Vector(2.3, 2.3, 2.3);
 	tmp2->DefaultRotation = Point(-1 * 3.1415926/2, 0, 0);
@@ -190,7 +179,7 @@ void Init()
 	tmp2->WriteSelfRotation(0.00, 0.01, 0.0);
 	AddObject(tmp2);
 	
-	Object* tmp3 = new Object(Index, SSStexture->GetTexture(0));//TMP
+	Object* tmp3 = new Object(GLVar.Index, GLVar.SSStexture->GetTexture(0));//TMP
 	tmp3->WriteScale(1, 1, 1);
 	tmp3->DefaultScale = Vector(4, 4, 4);
 	tmp3->DefaultRotation = Point(-1 * 3.1415926/2, 0, 0);
@@ -205,19 +194,19 @@ void Draw()
 {
   //time
   int t = glutGet(GLUT_ELAPSED_TIME);
-  SystemTime.Writedt(0.001*(t-SystemTime.Getlast_time()));
-  SystemTime.Writelast_time(t);
+  GLVar.SystemTime.Writedt(0.001*(t-GLVar.SystemTime.Getlast_time()));
+  GLVar.SystemTime.Writelast_time(t);
   
   // frame rate
-  SystemTime.Writeframe_count((SystemTime.Getframe_count()) + 1);
-  SystemTime.Writeframe_time((SystemTime.Getframe_time()) 
-                               + (SystemTime.Getdt()));
-  if (SystemTime.Getframe_time() >= 0.5) {
-    double fps = SystemTime.Getframe_count()/SystemTime.Getframe_time();
-    SystemTime.Writeframe_count(0);
-    SystemTime.Writeframe_time(0);
+  GLVar.SystemTime.Writeframe_count((GLVar.SystemTime.Getframe_count()) + 1);
+  GLVar.SystemTime.Writeframe_time((GLVar.SystemTime.Getframe_time()) 
+                               + (GLVar.SystemTime.Getdt()));
+  if (GLVar.SystemTime.Getframe_time() >= 0.5) {
+    double fps = GLVar.SystemTime.Getframe_count()/GLVar.SystemTime.Getframe_time();
+    GLVar.SystemTime.Writeframe_count(0);
+    GLVar.SystemTime.Writeframe_time(0);
     std::stringstream ss;
-    ss << glWindows.Getname() << " [fps=" << int(fps) << "]";
+    ss << GLVar.glWindows.Getname() << " [fps=" << int(fps) << "]";
     glutSetWindowTitle(ss.str().c_str());
   }
   
@@ -229,32 +218,32 @@ void Draw()
   glClear(GL_DEPTH_BUFFER_BIT);
 	
 	//Update
-	//ObjectList[0]->WriteRotation(0, ObjectList[0]->GetRotation().y + 0.005, 0);
+	//GLVar.ObjectList[0]->WriteRotation(0, GLVar.ObjectList[0]->GetRotation().y + 0.005, 0);
   
   //Calculate Camera Matrix
-  Affine tmpCameraAffine = cams[0].WorldToCamera(cams[0]);
-	Matrix tmpProjecMatrix = CameraToNDC(cams[0]);
+  Affine tmpCameraAffine = GLVar.cams[0].WorldToCamera(GLVar.cams[0]);
+	Matrix tmpProjecMatrix = CameraToNDC(GLVar.cams[0]);
  
   
   //Drawing
-  for (std::vector<Object*>::size_type i = 0; i < Index; i++)
+  for (std::vector<Object*>::size_type i = 0; i < GLVar.Index; i++)
   {
-    ObjectList[i]->ObjectDraw(tmpCameraAffine, tmpProjecMatrix, obj_initialized);
-    //ObjectList[i]->WriteAngle(ObjectList[i]->GetAngle() + 1);
+    GLVar.ObjectList[i]->ObjectDraw(tmpCameraAffine, tmpProjecMatrix, GLVar.obj_initialized);
+    //GLVar.ObjectList[i]->WriteAngle(GLVar.ObjectList[i]->GetAngle() + 1);
   }
   // swap in the back buffer
   glutSwapBuffers();
-  SystemTime.Writecurrent_time(SystemTime.Getcurrent_time() +
-                                SystemTime.Getdt());
+  GLVar.SystemTime.Writecurrent_time(GLVar.SystemTime.Getcurrent_time() +
+                                GLVar.SystemTime.Getdt());
 																
-	if(obj_initialized == false)
+	if(GLVar.obj_initialized == false)
 	{
-		obj_initialized = true;
+		GLVar.obj_initialized = true;
 	}
 }
 
 
 void Destroy(void)
 {
-  //delete SystemTime;
+  //delete GLVar.SystemTime;
 }

@@ -13,16 +13,15 @@
 #include "WindowsSys.h"
 #include "Time.h"
 
-GlobalTime SystemTime;
-WindowsSys glWindows;
-float PI = 3.1415926535;
-int Index = 0;
-const Point O = Point(0, 0, 0);
-SphereMesh sphere;
-Camera cams[1];
-Vector RelativeUp(0, 1, 0);
-std::vector<Object*> ObjectList;
-SSS_Texture* SSStexture;
+//GlobalTime SystemTime;
+//WindowsSys GLVar.glWindows;
+//int Index = 0;
+//Camera cams[1];
+//Vector RelativeUp(0, 1, 0);
+//std::vector<Object*> ObjectList;
+//SSS_Texture* SSStexture;
+
+GlobalVariables GLVar;
 
 int main(int argc, char* argv[])
 {
@@ -31,8 +30,8 @@ int main(int argc, char* argv[])
   // Use a z-buffer for rendering:
   glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
   glutInitWindowPosition(0,0);
-  glutInitWindowSize(glWindows.Getwidth(), glWindows.Getheight());
-  glutCreateWindow(glWindows.Getname());
+  glutInitWindowSize(GLVar.glWindows.Getwidth(), GLVar.glWindows.Getheight());
+  glutCreateWindow(GLVar.glWindows.Getname());
   glutDisplayFunc(Draw);
   glutKeyboardFunc(KeyPressed);
   glutMotionFunc(MouseMotionFunction);
