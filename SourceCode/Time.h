@@ -8,8 +8,8 @@
 */
 /******************************************************************************/
 
-#ifndef SSS_TIME_H
-#define SSS_TIME_H
+#ifndef PS_TIME_H
+#define PS_TIME_H
 class GlobalTime
 {
   public:

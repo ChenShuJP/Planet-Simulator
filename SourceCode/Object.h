@@ -9,8 +9,8 @@
 /******************************************************************************/
 
 
-#ifndef SSS_OBJECT_H
-#define SSS_OBJECT_H
+#ifndef PS_OBJECT_H
+#define PS_OBJECT_H
 #include "Affine.h"
 #include <GL/glut.h>
 

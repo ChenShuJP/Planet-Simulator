@@ -9,8 +9,8 @@
 /******************************************************************************/
 #include "Affine.h"
 
-#ifndef SSS_CAMERA_H
-#define SSS_CAMERA_H
+#ifndef PS_CAMERA_H
+#define PS_CAMERA_H
 
 
 

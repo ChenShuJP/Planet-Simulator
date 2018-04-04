@@ -8,8 +8,8 @@
 */
 /******************************************************************************/
 
-#ifndef PROJECTION_H
-#define PROJECTION_H
+#ifndef PS_PROJECTION_H
+#define PS_PROJECTION_H
 
 #include "Camera.h"
 

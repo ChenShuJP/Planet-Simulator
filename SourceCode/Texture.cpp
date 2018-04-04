@@ -10,7 +10,7 @@
 
 #include "Texture.h"
 #include <iostream>
-SSS_Texture::SSS_Texture()
+PS_Texture::PS_Texture()
 {
   for (int i = 0; i < texture_num; i++)
   {
@@ -25,7 +25,7 @@ SSS_Texture::SSS_Texture()
 }
 
 
-GLuint SSS_Texture::LoadTextureRAW(const char* filename, int TextureID)
+GLuint PS_Texture::LoadTextureRAW(const char* filename, int TextureID)
 {
   int width, height;
   unsigned char * data;
@@ -64,7 +64,7 @@ GLuint SSS_Texture::LoadTextureRAW(const char* filename, int TextureID)
   return textureL;
 }
 
-GLuint& SSS_Texture::GetTexture(int index)
+GLuint& PS_Texture::GetTexture(int index)
 {
   return texture[index];
 }

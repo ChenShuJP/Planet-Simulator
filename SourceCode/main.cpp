@@ -13,14 +13,6 @@
 #include "WindowsSys.h"
 #include "Time.h"
 
-//GlobalTime SystemTime;
-//WindowsSys GLVar.glWindows;
-//int Index = 0;
-//Camera cams[1];
-//Vector RelativeUp(0, 1, 0);
-//std::vector<Object*> ObjectList;
-//SSS_Texture* SSStexture;
-
 GlobalVariables GLVar;
 
 int main(int argc, char* argv[])

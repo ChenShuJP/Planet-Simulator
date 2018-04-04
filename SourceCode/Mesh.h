@@ -10,6 +10,9 @@
 
 #include "Affine.h"
 
+#ifndef PS_MESH_H
+#define PS_MESH_H
+
 
 struct Mesh {
 
@@ -37,4 +40,4 @@ struct Mesh {
   virtual Edge GetEdge(int i) = 0;
 
 };
-
+#endif

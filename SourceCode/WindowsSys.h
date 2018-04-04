@@ -1,3 +1,14 @@
+/******************************************************************************/
+/*!
+@file   WindowsSys.h
+@author Chen Shu
+@par    email: shuchenjp@gmail.com
+@date   4/4/2018
+@brief  Header file of Windows-related issues.
+*/
+/******************************************************************************/
+
+
 #ifndef PS_WINDOWSSYS_H
 #define PS_WINDOWSSYS_H
 

@@ -7,8 +7,8 @@
 @brief  Header file of drawing functions.
 */
 /******************************************************************************/
-#ifndef SSS_GLDRAW_H
-#define SSS_GLDRAW_H
+#ifndef PS_GLDRAW_H
+#define PS_GLDRAW_H
 
 void Loop(void);
 void Resized(int W, int H);

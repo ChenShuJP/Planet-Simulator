@@ -148,8 +148,8 @@ void Init()
   GLVar.SystemTime.Writeframe_time(0);
   GLVar.cams[0] = Camera(Point(0.0f, 0.0f, 50.0f), Vector(0.0f, 0.0, -1.0f), GLVar.RelativeUp
                 , 0.5f*GLVar.PI, 1, 0.01f, 1.0f);          
-  GLVar.SSStexture = &SSS_Texture();
-  Object* tmp = new Object(GLVar.Index, GLVar.SSStexture->GetTexture(0));//TMP
+  GLVar.PStexture = &PS_Texture();
+  Object* tmp = new Object(GLVar.Index, GLVar.PStexture->GetTexture(0));//TMP
   tmp->WriteScale(1, 1, 1);
 	tmp->DefaultScale = Vector(1, 1, 1);
 	tmp->DefaultRotation = Point(-1 * 3.1415926/2, 0, 0);
@@ -159,7 +159,7 @@ void Init()
 	tmp->WriteSelfRotation(0.00, 0.03, 0.0);
   AddObject(tmp);
 	
-	Object* tmp1 = new Object(GLVar.Index, GLVar.SSStexture->GetTexture(0));//TMP
+	Object* tmp1 = new Object(GLVar.Index, GLVar.PStexture->GetTexture(0));//TMP
 	tmp1->WriteScale(1, 1, 1);
 	tmp1->DefaultScale = Vector(7, 7, 7);
 	tmp1->DefaultRotation = Point(-1 * 3.1415926/2, 0, 0);
@@ -169,7 +169,7 @@ void Init()
 	tmp1->WriteSelfRotation(0.00, 0.0, 0.0);
 	AddObject(tmp1);
 	
-	Object* tmp2 = new Object(GLVar.Index, GLVar.SSStexture->GetTexture(0));//TMP
+	Object* tmp2 = new Object(GLVar.Index, GLVar.PStexture->GetTexture(0));//TMP
 	tmp2->WriteScale(1, 1, 1);
 	tmp2->DefaultScale = Vector(2.3, 2.3, 2.3);
 	tmp2->DefaultRotation = Point(-1 * 3.1415926/2, 0, 0);
@@ -179,7 +179,7 @@ void Init()
 	tmp2->WriteSelfRotation(0.00, 0.01, 0.0);
 	AddObject(tmp2);
 	
-	Object* tmp3 = new Object(GLVar.Index, GLVar.SSStexture->GetTexture(0));//TMP
+	Object* tmp3 = new Object(GLVar.Index, GLVar.PStexture->GetTexture(0));//TMP
 	tmp3->WriteScale(1, 1, 1);
 	tmp3->DefaultScale = Vector(4, 4, 4);
 	tmp3->DefaultRotation = Point(-1 * 3.1415926/2, 0, 0);

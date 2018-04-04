@@ -1,3 +1,13 @@
+/******************************************************************************/
+/*!
+@file   WindowsSys.cpp
+@author Chen Shu
+@par    email: shuchenjp@gmail.com
+@date   4/4/2018
+@brief  Implementation of Windows-related issues.
+*/
+/******************************************************************************/
+
 #include "WindowsSys.h"
 
 char* WindowsSys::Getname(void)

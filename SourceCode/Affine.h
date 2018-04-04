@@ -8,8 +8,8 @@
 */
 /******************************************************************************/
 
-#ifndef SSS_AFFINE_H
-#define SSS_AFFINE_H
+#ifndef PS_AFFINE_H
+#define PS_AFFINE_H
 
 #include <cmath>
 #include <cassert>

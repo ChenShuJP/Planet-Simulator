@@ -8,8 +8,8 @@
 */
 /******************************************************************************/
 
-#ifndef SSS_GLOBALDEC_H
-#define SSS_GLOBALDEC_H
+#ifndef PS_GLOBALDEC_H
+#define PS_GLOBALDEC_H
 
 #include "Object.h"
 #include <vector>
@@ -18,37 +18,6 @@
 #include "Camera.h"
 #include "Time.h"
 #include "WindowsSys.h"
-
-//extern GlobalTime SystemTime;
-//extern WindowsSys glWindows;
-
-//extern SphereMesh sphere;
-//cams[0]: Original camera.
-//extern Camera cams[1];
-//extern Vector RelativeUp;
-//extern float PI;
-
-//Center
-//extern const Point O;
-
-//ObjectList
-//extern std::vector<Object*> ObjectList;
-
-//ObjectID
-//extern int Index;
-
-//Texture
-//extern SSS_Texture* SSStexture;
-
-//Object Initialization
-//extern bool obj_initialized;
-
-//Mouse related
-//extern bool obj_initialized;
-//extern bool Mouse_pressed_l;
-//extern bool mouse_pos_initialized;
-//extern float camera_rot_speed;//0~1
-
 
 class GlobalVariables 
 {
@@ -66,7 +35,7 @@ class GlobalVariables
     //ObjectID
     int Index;
     //Texture
-    SSS_Texture* SSStexture; 
+    PS_Texture* PStexture; 
     //Object Initialization
     bool obj_initialized;
     //Mouse related

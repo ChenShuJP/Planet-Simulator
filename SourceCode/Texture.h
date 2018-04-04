@@ -13,10 +13,10 @@
 #include <string>
 #include <GL/glut.h>
 
-class SSS_Texture
+class PS_Texture
 {
   public:
-  SSS_Texture();
+  PS_Texture();
   GLuint LoadTextureRAW(const char* filename, int TextureID);
   GLuint& GetTexture(int index);
   private:
