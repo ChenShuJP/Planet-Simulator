@@ -8,10 +8,9 @@ A: Camera left;
 D: Camera right;
 Q: Camera Up;
 S: Camera Down;
-Z: Camera up rotation
-X: Camera down rotation
-C: Camera left rotation
-V: Camera right rotation
+
+Use mouse to rotate camera.
+
 Esc: Exit.(If you close the program by clicking the red cross, process will not be ended
  properly.[Even though it happens, nothing harmful will be done to your computer.])
 
