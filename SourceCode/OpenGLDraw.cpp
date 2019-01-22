@@ -16,10 +16,26 @@
 #include <GL/glut.h>
 #include "Object.h"
 
+int AddNewTestSphereCount = 1;
+
 void AddObject(Object* object)
 {
   GLVar.ObjectList.push_back(object);
   GLVar.Index++;
+}
+
+void AddNewTestSphere()
+{
+	Object* tmp = new Object(GLVar.Index, GLVar.PStexture->GetTexture(0));//TMP
+	tmp3->WriteScale(1, 1, 1);
+	tmp3->DefaultScale = Vector(4, 4, 4);
+	tmp3->DefaultRotation = Point(-1 * 3.1415926/2, 0, 0);
+  tmp3->WriteTranslation(0, 0, 0);
+	tmp3->WriteDefaultPosition(0, 0, -27-AddNewTestSphereCount);
+	tmp3->WriteRotation(0, 0.001, 0);
+	tmp3->WriteSelfRotation(0.00, 0.002, 0.0);
+	AddNewTestSphereCount++;
+	AddObject(tmp);
 }
 
 void MouseMotionFunction(int x, int y)
@@ -188,6 +204,8 @@ void Init()
 	tmp3->WriteRotation(0, 0.001, 0);
 	tmp3->WriteSelfRotation(0.00, 0.002, 0.0);
 	AddObject(tmp3);
+	
+	
 }
 
 void Draw()
