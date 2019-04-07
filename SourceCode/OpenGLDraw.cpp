@@ -16,27 +16,13 @@
 #include <GL/glut.h>
 #include "Object.h"
 
-int AddNewTestSphereCount = 1;
-
 void AddObject(Object* object)
 {
   GLVar.ObjectList.push_back(object);
   GLVar.Index++;
 }
 
-void AddNewTestSphere()
-{
-	Object* tmp = new Object(GLVar.Index, GLVar.PStexture->GetTexture(0));//TMP
-	tmp3->WriteScale(1, 1, 1);
-	tmp3->DefaultScale = Vector(4, 4, 4);
-	tmp3->DefaultRotation = Point(-1 * 3.1415926/2, 0, 0);
-  tmp3->WriteTranslation(0, 0, 0);
-	tmp3->WriteDefaultPosition(0, 0, -27-AddNewTestSphereCount);
-	tmp3->WriteRotation(0, 0.001, 0);
-	tmp3->WriteSelfRotation(0.00, 0.002, 0.0);
-	AddNewTestSphereCount++;
-	AddObject(tmp);
-}
+Object* tmp4;//TMP
 
 void MouseMotionFunction(int x, int y)
 {
@@ -82,8 +68,25 @@ void MouseFunction(int button, int state,
   }
 }
 
+
+
 void KeyPressed(unsigned char c, int x, int y) 
 {
+  if (c == 'j')
+  {
+    
+    GLVar.PStexture = &PS_Texture();
+    tmp4 = new Object(GLVar.Index, GLVar.PStexture->GetTexture(0));
+    tmp4->WriteScale(1, 1, 1);
+    tmp4->DefaultScale = Vector(4, 4, 4);
+    tmp4->DefaultRotation = Point(-1 * 3.1415926/2, 0, 0);
+    tmp4->WriteTranslation(0, 0, 0);
+    tmp4->WriteDefaultPosition(0, 0, -27);
+    tmp4->WriteRotation(0, 0.001, 0);
+    tmp4->WriteSelfRotation(0.00, 0.002, 0.0);
+    tmp4->WriteObjectInitialized(false);
+    AddObject(tmp4);
+  }
   if (c == '\x1b')
     exit(0);
   if (c == 'w')
@@ -173,6 +176,7 @@ void Init()
 	tmp->WriteDefaultPosition(0, 0, -13);
 	tmp->WriteRotation(0, 0.01, 0);
 	tmp->WriteSelfRotation(0.00, 0.03, 0.0);
+  tmp->WriteObjectInitialized(false);
   AddObject(tmp);
 	
 	Object* tmp1 = new Object(GLVar.Index, GLVar.PStexture->GetTexture(0));//TMP
@@ -183,6 +187,7 @@ void Init()
 	tmp1->WriteDefaultPosition(0, 0, 0);
 	tmp1->WriteRotation(0, 0.0, 0);
 	tmp1->WriteSelfRotation(0.00, 0.0, 0.0);
+  tmp1->WriteObjectInitialized(false);
 	AddObject(tmp1);
 	
 	Object* tmp2 = new Object(GLVar.Index, GLVar.PStexture->GetTexture(0));//TMP
@@ -193,6 +198,7 @@ void Init()
 	tmp2->WriteDefaultPosition(0, 0, -20);
 	tmp2->WriteRotation(0, 0.002, 0);
 	tmp2->WriteSelfRotation(0.00, 0.01, 0.0);
+  tmp2->WriteObjectInitialized(false);
 	AddObject(tmp2);
 	
 	Object* tmp3 = new Object(GLVar.Index, GLVar.PStexture->GetTexture(0));//TMP
@@ -203,9 +209,10 @@ void Init()
 	tmp3->WriteDefaultPosition(0, 0, -27);
 	tmp3->WriteRotation(0, 0.001, 0);
 	tmp3->WriteSelfRotation(0.00, 0.002, 0.0);
+  tmp3->WriteObjectInitialized(false);
 	AddObject(tmp3);
 	
-	
+  
 }
 
 void Draw()
@@ -246,7 +253,12 @@ void Draw()
   //Drawing
   for (std::vector<Object*>::size_type i = 0; i < GLVar.Index; i++)
   {
-    GLVar.ObjectList[i]->ObjectDraw(tmpCameraAffine, tmpProjecMatrix, GLVar.obj_initialized);
+    //std::cout << i << std::endl;
+    GLVar.ObjectList[i]->ObjectDraw(tmpCameraAffine, tmpProjecMatrix, GLVar.ObjectList[i]->GetObjectInitialized());
+    if(GLVar.ObjectList[i]->GetObjectInitialized() == false)
+    {
+      GLVar.ObjectList[i]->WriteObjectInitialized(true);
+    }
     //GLVar.ObjectList[i]->WriteAngle(GLVar.ObjectList[i]->GetAngle() + 1);
   }
   // swap in the back buffer
@@ -254,10 +266,10 @@ void Draw()
   GLVar.SystemTime.Writecurrent_time(GLVar.SystemTime.Getcurrent_time() +
                                 GLVar.SystemTime.Getdt());
 																
-	if(GLVar.obj_initialized == false)
+	/*if(GLVar.obj_initialized == false)
 	{
 		GLVar.obj_initialized = true;
-	}
+	}*/
 }
 
 

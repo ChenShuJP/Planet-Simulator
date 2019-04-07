@@ -25,13 +25,13 @@ int main(int argc, char* argv[])
   glutInitWindowSize(GLVar.glWindows.Getwidth(), GLVar.glWindows.Getheight());
   glutCreateWindow(GLVar.glWindows.Getname());
   glutDisplayFunc(Draw);
-  glutKeyboardFunc(KeyPressed);
   glutMotionFunc(MouseMotionFunction);
   glutPassiveMotionFunc(MousePassMotionFunction);
   glutMouseFunc(MouseFunction);
   glutReshapeFunc(Resized);
   glutIdleFunc(Loop);
   Init();
+  glutKeyboardFunc(KeyPressed);
   glutMainLoop();
   Destroy();
   return 0;

@@ -30,6 +30,7 @@ void Object::ObjectDraw(Affine& CMatrix, Matrix& PMatrix, bool obj_initialized)
   glBegin (GL_TRIANGLE_STRIP);
 	
 	Hcoords Point1tmp;
+  //std::cout << "called" << std::endl;
 	
 	if (obj_initialized == false)
 	{
@@ -132,6 +133,16 @@ void Object::WriteRotation(float x, float y, float z)
   Rotation.x = x;
   Rotation.y = y;
   Rotation.z = z;
+}
+
+void Object::WriteObjectInitialized(bool input)
+{
+  ObjectInitialized = input;
+}
+
+bool Object::GetObjectInitialized(void)
+{
+  return ObjectInitialized;
 }
 
 GLuint& Object::GetTextureID(void)

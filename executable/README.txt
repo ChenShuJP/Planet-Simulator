@@ -8,6 +8,7 @@ A: Camera left;
 D: Camera right;
 Q: Camera Up;
 S: Camera Down;
+J: To spawn new sphere;
 
 Use mouse to rotate camera.
 

@@ -33,6 +33,8 @@ class Object
   Point& GetDefaultPosition(void);
 	void WriteSelfRotation(float x, float y, float z);
 	Point& GetSelfRotation(void);
+  void WriteObjectInitialized(bool input);
+  bool GetObjectInitialized(void);
 	
 	Matrix ModelMatrix;
 	Matrix BasicModelMatrix;
@@ -51,6 +53,7 @@ class Object
 	Point DefaultPosition;
 	Point SelfRotation;
 	Point Position;
+  bool ObjectInitialized;
 };
 
 #endif
