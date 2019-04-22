@@ -118,23 +118,6 @@ void KeyPressed(unsigned char c, int x, int y)
     GLVar.cams[0].ChangeEye(0, -1, 0);
   }
 	
-  /*
-  if (c == 'z')
-  {
-    GLVar.cams[0].RotateCamera(0.01, 0, 0);
-  }
-  if (c == 'x')
-  {
-    GLVar.cams[0].RotateCamera(-0.01, 0, 0);
-  }
-  if (c == 'c')
-  {
-    GLVar.cams[0].RotateCamera(0, 0.01, 0);
-  }
-  if (c == 'v')
-  {
-    GLVar.cams[0].RotateCamera(0, -0.01, 0);
-  }*/
 }
 
 void Loop(void)

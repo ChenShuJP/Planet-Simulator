@@ -202,6 +202,7 @@ Hcoords operator+(const Hcoords& u, const Hcoords& v)
   return tmp;
 }
 
+//Vector A - Vector B
 Hcoords operator-(const Hcoords& u, const Hcoords& v)
 {
   Hcoords tmp;
@@ -212,6 +213,7 @@ Hcoords operator-(const Hcoords& u, const Hcoords& v)
   return tmp;
 }
 
+//-1 * Vector A
 Hcoords operator-(const Hcoords& v)
 {
   Hcoords tmp;
