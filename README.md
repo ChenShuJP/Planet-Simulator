@@ -6,8 +6,7 @@ To anyone who wants to test this program,
 3. Run PlanetSimulator.exe. More specific control explanation is in README.txt.
 4. Firewall might alarm you it is a virus or Trojan. Turnoff the firewall or check my code and recompile it.
 
-To anyone who want to view my source code,
-  All files are in the SourceFile folder.
+To anyone who want to view source code, all files are in the SourceFile folder.
 
 Todo: Lighting.
       More Texture test.
