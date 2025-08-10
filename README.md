@@ -15,4 +15,4 @@ Todo: Lighting.
 			!!!!Frame rate control.!!!
 			
 Update(10/1/2019):
-	This project will be abandoned for a while. I am and will be quite busy in studying physics and math in next few years.	I might keep doing some easy coding in C# (like the other unity game project uploaded 1 month ago),but have no time to finish such heavy work in c++ anymore.						
+	This project will be abandoned for a while. I am and will be quite busy in studying physics and math in next few years.
